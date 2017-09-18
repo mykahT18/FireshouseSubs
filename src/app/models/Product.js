@@ -1,8 +1,8 @@
-var mongoose = require('mongoose')
+// var mongoose = require('mongoose')
 
-var productSchema = mongoose.Schema({
-  name: String,
-  price: {type: Number}
-})
+// var productSchema = mongoose.Schema({
+//   name: String,
+//   price: {type: Number}
+// })
 
-module.exports = mongoose.model('Product', productSchema)
+// module.exports = mongoose.model('Product', productSchema)

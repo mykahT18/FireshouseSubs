@@ -1,10 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const router = express.Router();
 
 // Importing Models
-const Product = mongoose.model('Product');
-const Order = mongoose.model('Order');
+// const Product = mongoose.model('Product');
+// const Order = mongoose.model('Order');
 
 module.exports = function(app){
 	app.use('/api/v1', router);
