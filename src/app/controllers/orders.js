@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 // Importing Models
-// const Product = mongoose.model('Product');
-// const Order = mongoose.model('Order');
+const Product = require('../models/Product.js')
+const Order = require('../models/Order.js')
 
 module.exports = function(app){
 	app.use('/api/v1', router);
@@ -13,30 +13,38 @@ module.exports = function(app){
   // Get Orders
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   router.get('/order', (req, res) => {    
-    Order.find()
-      .populate('product_id') 
-      .exec(function(err, product){
-        res.json(product)
-      });
-    });
+    Order.findAll((errorData) => {
+      console.error(errorData);
+      res.status(500).json(errorData);
+    }, (successData) => {
+      console.log(successData);
+      res.status(200).json(successData);
+    })
+  });
 
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   // Get Products
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   router.get('/products', (req, res) => {
-    console.log("Getting all products! 🙌")
-    Product.find()
-    .exec((err, products) => {
-      res.json(products)
+    Product.findAll((errorData) => {
+      console.error(errorData);
+      res.status(500).json(errorData);
+    }, (successData) => {
+      console.log(successData);
+      res.status(200).json(successData);
     })
   })
 
   router.get('/order/:orderID', (req, res) => {
     // console.log(req.params.orderID)
-    Order.findById(req.params.orderID, (err, docs) => {
-      console.log("DOCS REURNED--- ",docs)
-      res.json(docs)
-    }).populate('product_id') 
+    const where = {id: req.params.orderID};
+    Order.find(where, (errorData) => {
+      console.error(errorData);
+      res.status(500).json(errorData);
+    }, (successData) => {
+      console.log(successData);
+      res.status(200).json(successData);
+    })
 
   })
 
@@ -44,23 +52,20 @@ module.exports = function(app){
   // Create New Order
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   router.post('/order', (req, res) => {
-    // console.log('Create NEW Order:', req.body);
-    const newOrder = new Order(req.body)
-    let total = []
-    let i = 0
-    req.body.product_id.forEach((id) => {
-      Product.findById(id, (err, product) => {
-        i++
-        total.push(product.price)
-        if(i === req.body.product_id.length){
-          newOrder.total_price = newOrder.getTotalPrice(total)
-          newOrder.save((err, order) => {
-          if(err) return res.send(err);
-            res.json(order);
-          })
-        }      
-      })
+    const newOrder = {
+      product_id: 4,
+      total_price: 6.99
+    }
+
+    Order.create(newOrder, (errorData) => {
+      console.error(errorData);
+      res.status(500).json(errorData);
+    }, (successData) => {
+      console.log(successData);
+      res.status(200).json(successData);
+      console.log('yoyoyoy')
     })
+
   })
 
   // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

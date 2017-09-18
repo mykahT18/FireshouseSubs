@@ -19,9 +19,6 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
 });
 
 const order = sequelize.define('order', {
-  product_id: {
-    type: Sequelize.STRING,
-  },
   total_price: {
     type: Sequelize.INTEGER,
   }
@@ -30,13 +27,13 @@ const product = sequelize.define('product', {
   name: {
     type: Sequelize.STRING,
   },
-  pice: {
+  price: {
     type: Sequelize.INTEGER,
   },
 });
 
-order.hasMany(product, {
-  foreignKey: 'orderID',
+product.hasMany(order, {
+  foreignKey: 'product_id',
 })
 sequelize.sync();
 
