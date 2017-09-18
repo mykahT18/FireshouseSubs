@@ -8,5 +8,6 @@ is it possible to run the seeder in this project using the following command in 
 
 ```
 node src/seed/seeder.js  
+Hello
 
 ```
