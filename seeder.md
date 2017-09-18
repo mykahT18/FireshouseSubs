@@ -7,7 +7,6 @@ This seeder is adding 3 productos to the DB
 is it possible to run the seeder in this project using the following command in terminal.
 
 ```
-node src/seed/seeder.js  
-Hello
+node src/seed/seeder.js
 
 ```
