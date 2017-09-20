@@ -1,7 +1,10 @@
 const db = require('../db.js')
+const Product = db.product
 
 exports.create = (data, err, success) => {
-  db.order.create(data).then(success).catch(err);
+	console.log("HELLLO THERE ", data)
+  db.order.create(data
+  ).then(success).catch(err);
 }
 
 exports.findAll = (err, success) => {
@@ -12,16 +15,22 @@ exports.find = (payload, err, success) => {
     where: payload,
     // Find all relations in sequelize
     include: [{
+    	model: Product,
       all: true,
       nested: true,
     }],
   }).then(success).catch(err);
 }
-
-// var orderSchema = mongoose.Schema({
-//   product_id: [{type:  mongoose.Schema.Types.ObjectId, ref: 'Product'}],
-//   total_price: {type: Number, default: 0}
-// })
+exports.update = () => {
+	
+}
+exports.delete = (id, success, err) => {
+	db.order.destroy({
+    where: {
+        id: id
+    }
+	}).then(success).catch(err);
+}
 
 
 // orderSchema.methods.getTotalPrice = function(prices){
